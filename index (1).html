@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vicky Made — Bespoke Menswear Atelier</title>
+<meta name="description" content="Vicky Made is a bespoke menswear house designing tailored suits, occasion wear, formalwear, and ready-to-wear pieces by hand, one fitting at a time.">
+<meta name="theme-color" content="#15120f">
+<meta property="og:title" content="Vicky Made — Bespoke Menswear Atelier">
+<meta property="og:description" content="Tailored suits, occasion wear, and formalwear for men, built by hand, one fitting at a time.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --ink:#15120f;
+    --ink-2:#1c1712;
+    --ink-3:#0c0a08;
+    --ivory:#f5efe4;
+    --ivory-2:#ece2d0;
+    --ivory-dim:#d9cdb8;
+    --brass:#b9935c;
+    --brass-light:#dcbd8a;
+    --wine:#5c1c2c;
+    --stone:#9c8f7c;
+    --stone-dim:#6d6455;
+    --line-on-dark: rgba(245,239,228,0.14);
+    --line-on-light: rgba(21,18,15,0.12);
+
+    --display: 'Fraunces', serif;
+    --body: 'Manrope', sans-serif;
+    --utility: 'Jost', sans-serif;
+
+    --container: 1240px;
+    --gutter: clamp(24px, 5vw, 72px);
+    --spine-x: 40px;
+
+    --ease: cubic-bezier(.22,.8,.28,1);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  /* ============ RESET ============ */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:var(--body);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3,h4,p{ margin:0; }
+  button{ font-family:inherit; cursor:pointer; }
+  input,select,textarea{ font-family:inherit; font-size:1rem; }
+
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--brass); color:var(--ink-3);
+    padding:12px 20px; z-index:999; font-family:var(--utility); font-size:.85rem;
+  }
+  .skip-link:focus{ left:16px; top:16px; }
+
+  .wrap{ max-width:var(--container); margin:0 auto; padding-left:var(--gutter); padding-right:var(--gutter); }
+
+  .eyebrow{
+    font-family:var(--utility);
+    text-transform:uppercase;
+    letter-spacing:.22em;
+    font-size:.72rem;
+    font-weight:500;
+    color:var(--brass);
+    display:flex; align-items:center; gap:12px;
+  }
+  .eyebrow::before{ content:''; width:28px; height:1px; background:var(--brass); display:inline-block; }
+
+  .section{ position:relative; padding:clamp(72px,11vw,140px) 0; }
+  .on-dark{ background:var(--ink); color:var(--ivory); }
+  .on-dark .eyebrow{ color:var(--brass-light); }
+  .on-dark2{ background:var(--ink-2); color:var(--ivory); }
+
+  .btn{
+    font-family:var(--utility); text-transform:uppercase; letter-spacing:.14em; font-size:.78rem; font-weight:500;
+    padding:16px 30px; border-radius:1px; display:inline-flex; align-items:center; gap:10px;
+    border:1px solid currentColor; background:transparent; transition:background .35s var(--ease), color .35s var(--ease);
+    position:relative;
+  }
+  .btn-solid{ background:var(--brass); border-color:var(--brass); color:var(--ink-3); }
+  .btn-solid:hover{ background:var(--brass-light); border-color:var(--brass-light); }
+  .btn-ghost{ color:inherit; }
+  .btn-ghost:hover{ background:currentColor; }
+  .btn-ghost:hover span{ mix-blend-mode:difference; }
+  .btn svg{ width:14px; height:14px; transition:transform .3s var(--ease); }
+  .btn:hover svg{ transform:translateX(4px); }
+
+  /* ============ REVEAL ============ */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1{ transition-delay:.08s; }
+  .reveal-delay-2{ transition-delay:.16s; }
+  .reveal-delay-3{ transition-delay:.24s; }
+
+  /* ============ STITCH SPINE (signature element) ============ */
+  .spine{
+    position:absolute; top:0; bottom:0; left:var(--spine-x); width:20px; pointer-events:none; display:none;
+  }
+  @media (min-width:1100px){ .spine{ display:block; } main{ position:relative; } }
+  .spine-track, .spine-fill{
+    position:absolute; top:0; left:9px; width:1px; height:100%;
+  }
+  .spine-track{ background-image: linear-gradient(var(--stone-dim) 60%, transparent 0%); background-size: 1px 10px; opacity:.35; }
+  .spine-fill{ background:var(--brass); transform:scaleY(0); transform-origin:top; }
+  .spine-pin{
+    position:absolute; left:2px; width:16px; height:16px; border-radius:50%;
+    border:1px solid var(--stone); background:var(--ivory); transform:translateY(-8px);
+    transition:background .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
+  }
+  .spine-pin.lit{ background:var(--brass); border-color:var(--brass); box-shadow:0 0 0 4px rgba(185,147,92,.18); }
+  .on-dark ~ .spine .spine-pin, .on-dark2 ~ .spine .spine-pin{ background:var(--ink); }
+
+  /* ============ HEADER / NAV ============ */
+  .site-header{
+    position:fixed; top:0; left:0; right:0; z-index:500;
+    padding:22px var(--gutter);
+    display:flex; align-items:center; justify-content:space-between;
+    color:var(--ivory);
+    transition:background .4s var(--ease), padding .4s var(--ease), border-color .4s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  .site-header.scrolled{
+    background:rgba(21,18,15,.86); backdrop-filter:blur(10px);
+    padding-top:14px; padding-bottom:14px; border-color:var(--line-on-dark);
+  }
+  .brand{ display:flex; align-items:center; gap:12px; font-family:var(--utility); }
+  .brand-mark{
+    width:38px; height:38px; border:1px solid var(--brass); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-style:italic; font-size:1rem; color:var(--brass-light);
+  }
+  .brand-name{ text-transform:uppercase; letter-spacing:.2em; font-size:.85rem; }
+
+  .nav-list{ display:none; align-items:center; gap:36px; }
+  @media (min-width:900px){ .nav-list{ display:flex; } }
+  .nav-list a{
+    font-family:var(--utility); font-size:.78rem; text-transform:uppercase; letter-spacing:.14em;
+    position:relative; padding-bottom:4px;
+  }
+  .nav-list a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--brass-light);
+    transition:width .35s var(--ease);
+  }
+  .nav-list a:hover::after, .nav-list a:focus-visible::after{ width:100%; }
+
+  .nav-cta{ display:none; }
+  @media (min-width:900px){ .nav-cta{ display:inline-flex; } }
+
+  .nav-toggle{
+    display:flex; background:none; border:1px solid var(--line-on-dark); color:var(--ivory);
+    width:44px; height:44px; align-items:center; justify-content:center; border-radius:50%;
+  }
+  @media (min-width:900px){ .nav-toggle{ display:none; } }
+  .nav-toggle svg{ width:18px; height:18px; }
+
+  .mobile-menu{
+    position:fixed; inset:0; background:var(--ink-3); z-index:600;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px;
+    transform:translateY(-100%); transition:transform .5s var(--ease);
+  }
+  .mobile-menu.open{ transform:translateY(0); }
+  .mobile-menu a{
+    font-family:var(--display); font-style:italic; font-size:1.9rem; color:var(--ivory);
+  }
+  .mobile-menu-close{
+    position:absolute; top:22px; right:var(--gutter); background:none; border:1px solid var(--line-on-dark);
+    color:var(--ivory); width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+  .mobile-menu-close svg{ width:16px; height:16px; }
+
+  /* ============ HERO ============ */
+  .hero{
+    background:
+      radial-gradient(ellipse at 78% 12%, rgba(185,147,92,.16), transparent 55%),
+      radial-gradient(ellipse at 10% 90%, rgba(92,28,44,.28), transparent 55%),
+      var(--ink);
+    min-height:100svh; display:flex; align-items:flex-end; padding-top:140px; padding-bottom:64px;
+    overflow:hidden;
+  }
+  .hero-inner{ position:relative; width:100%; display:grid; gap:56px; }
+  @media (min-width:960px){ .hero-inner{ grid-template-columns:1.15fr .85fr; align-items:end; } }
+
+  .hero-figure{ order:-1; position:relative; }
+  @media (min-width:960px){ .hero-figure{ order:2; } }
+  .hero-figure svg{ width:100%; height:auto; max-width:420px; margin:0 auto; opacity:.92; }
+
+  .hero-eyebrow{ margin-bottom:26px; }
+  .hero-title{
+    font-family:var(--display); font-weight:400; color:var(--ivory);
+    font-size:clamp(2.6rem, 6.4vw, 5.4rem); line-height:1.02; letter-spacing:-.01em;
+  }
+  .hero-title em{ font-style:italic; font-weight:400; color:var(--brass-light); }
+  .hero-sub{
+    margin-top:26px; max-width:46ch; color:var(--ivory-dim); font-size:1.06rem; font-weight:300;
+  }
+  .hero-cta{ margin-top:44px; display:flex; flex-wrap:wrap; gap:18px; }
+  .hero-note{
+    margin-top:56px; display:flex; align-items:center; gap:16px; color:var(--stone);
+    font-family:var(--utility); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase;
+  }
+  .hero-note::before{ content:''; width:34px; height:1px; background:var(--stone-dim); }
+
+  .scroll-cue{
+    position:absolute; right:var(--gutter); bottom:24px; display:none; flex-direction:column; align-items:center; gap:10px;
+    color:var(--stone); font-family:var(--utility); font-size:.68rem; letter-spacing:.2em; text-transform:uppercase;
+  }
+  @media (min-width:960px){ .scroll-cue{ display:flex; } }
+  .scroll-cue .line{ width:1px; height:46px; background:linear-gradient(var(--brass), transparent); animation:cueMove 2.4s ease-in-out infinite; }
+  @keyframes cueMove{ 0%,100%{ transform:scaleY(1); transform-origin:top;} 50%{ transform:scaleY(.55); transform-origin:top;} }
+
+  /* ============ ABOUT ============ */
+  .about-grid{ display:grid; gap:56px; }
+  @media (min-width:900px){ .about-grid{ grid-template-columns: .8fr 1.2fr; gap:80px; } }
+  .about-heading{
+    font-family:var(--display); font-weight:400; font-size:clamp(1.9rem,3.4vw,2.7rem); line-height:1.14; margin-top:22px;
+  }
+  .about-copy p{ max-width:60ch; color:var(--ink); opacity:.85; font-weight:300; margin-bottom:18px; }
+  .about-copy p:last-child{ margin-bottom:0; }
+
+  .values{ margin-top:48px; display:grid; gap:32px; }
+  @media (min-width:600px){ .values{ grid-template-columns:repeat(3,1fr); } }
+  .value-item{ border-top:1px solid var(--line-on-light); padding-top:18px; }
+  .value-num{ font-family:var(--display); font-style:italic; color:var(--brass); font-size:1.1rem; }
+  .value-title{ font-family:var(--utility); text-transform:uppercase; letter-spacing:.1em; font-size:.84rem; margin:10px 0 8px; }
+  .value-desc{ font-size:.92rem; color:var(--stone-dim); font-weight:300; }
+
+  /* ============ SERVICES ============ */
+  .services-head{ display:flex; flex-direction:column; gap:22px; margin-bottom:64px; }
+  @media (min-width:900px){ .services-head{ flex-direction:row; justify-content:space-between; align-items:flex-end; } }
+  .services-title{ font-family:var(--display); font-weight:400; font-size:clamp(2rem,4vw,3.1rem); margin-top:20px; max-width:16ch; }
+  .services-lede{ max-width:38ch; color:var(--ivory-dim); font-weight:300; font-size:.98rem; }
+
+  .service-list{ border-top:1px solid var(--line-on-dark); }
+  .service-row{
+    display:grid; grid-template-columns: 70px 1fr; gap:24px; padding:30px 0; border-bottom:1px solid var(--line-on-dark);
+    align-items:baseline; transition:padding-left .4s var(--ease);
+  }
+  @media (min-width:700px){ .service-row{ grid-template-columns: 90px 1fr 1.1fr; align-items:center; } }
+  .service-row:hover{ padding-left:14px; }
+  .service-no{ font-family:var(--display); font-style:italic; color:var(--brass); font-size:1.15rem; }
+  .service-name{ font-family:var(--display); font-size:clamp(1.2rem,2.4vw,1.6rem); font-weight:400; }
+  .service-desc{ color:var(--stone); font-weight:300; font-size:.92rem; grid-column:2/-1; margin-top:6px; }
+  @media (min-width:700px){ .service-desc{ grid-column:auto; margin-top:0; text-align:right; } }
+
+  /* ============ PORTFOLIO ============ */
+  .portfolio-head{ display:flex; flex-direction:column; gap:20px; margin-bottom:44px; }
+  @media (min-width:900px){ .portfolio-head{ flex-direction:row; justify-content:space-between; align-items:flex-end; } }
+  .portfolio-title{ font-family:var(--display); font-size:clamp(2rem,4vw,3.1rem); margin-top:20px; }
+
+  .filters{ display:flex; flex-wrap:wrap; gap:10px; }
+  .filter-btn{
+    font-family:var(--utility); text-transform:uppercase; letter-spacing:.1em; font-size:.72rem;
+    padding:10px 18px; border:1px solid var(--line-on-light); background:transparent; color:var(--ink);
+    transition:background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+  }
+  .filter-btn.active, .filter-btn:hover{ background:var(--ink); color:var(--ivory); border-color:var(--ink); }
+
+  .gallery{ display:grid; gap:2px; grid-template-columns:repeat(2,1fr); background:var(--line-on-light); }
+  @media (min-width:640px){ .gallery{ grid-template-columns:repeat(3,1fr); } }
+  @media (min-width:960px){ .gallery{ grid-template-columns:repeat(4,1fr); } }
+
+  .look{
+    position:relative; aspect-ratio:3/4; background:var(--ivory); overflow:hidden;
+    transition:transform .3s var(--ease); cursor:default;
+  }
+  .look.hide{ display:none; }
+  .look-visual{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    transition:transform .7s var(--ease);
+  }
+  .look:hover .look-visual{ transform:scale(1.07); }
+  .look-visual svg{ width:52%; height:auto; opacity:.85; }
+  .look-caption{
+    position:absolute; left:0; right:0; bottom:0; padding:16px; color:var(--ivory);
+    background:linear-gradient(to top, rgba(12,10,8,.82), transparent);
+    transform:translateY(8px); opacity:0; transition:opacity .35s var(--ease), transform .35s var(--ease);
+  }
+  .look:hover .look-caption, .look:focus-within .look-caption{ opacity:1; transform:translateY(0); }
+  .look-cat{ font-family:var(--utility); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--brass-light); }
+  .look-name{ font-family:var(--display); font-style:italic; font-size:1rem; margin-top:4px; }
+
+  /* ============ WHY ============ */
+  .why-grid{ display:grid; gap:48px; }
+  @media (min-width:900px){ .why-grid{ grid-template-columns:.9fr 1.1fr; gap:80px; align-items:start; } }
+  .why-quote{
+    font-family:var(--display); font-style:italic; font-size:clamp(1.5rem,2.8vw,2.1rem); line-height:1.35;
+    color:var(--ivory); border-left:1px solid var(--brass); padding-left:28px; margin-top:24px;
+  }
+  .why-list{ display:grid; gap:0; }
+  .why-item{ padding:26px 0; border-top:1px solid var(--line-on-dark); display:grid; grid-template-columns:52px 1fr; gap:20px; }
+  .why-item:last-child{ border-bottom:1px solid var(--line-on-dark); }
+  .why-icon{ width:40px; height:40px; }
+  .why-icon svg{ width:100%; height:100%; stroke:var(--brass-light); }
+  .why-title{ font-family:var(--utility); text-transform:uppercase; letter-spacing:.08em; font-size:.86rem; margin-bottom:8px; }
+  .why-desc{ color:var(--stone); font-weight:300; font-size:.92rem; max-width:46ch; }
+
+  /* ============ TESTIMONIALS ============ */
+  .test-head{ margin-bottom:56px; }
+  .test-title{ font-family:var(--display); font-size:clamp(2rem,4vw,3.1rem); margin-top:20px; }
+  .test-grid{ display:grid; gap:1px; background:var(--line-on-light); border:1px solid var(--line-on-light); }
+  @media (min-width:800px){ .test-grid{ grid-template-columns:repeat(3,1fr); } }
+  .test-card{ background:var(--ivory); padding:36px 30px; display:flex; flex-direction:column; gap:22px; }
+  .quote-mark{ font-family:var(--display); font-style:italic; font-size:2.6rem; color:var(--brass); line-height:1; }
+  .test-quote{ font-family:var(--display); font-style:italic; font-size:1.12rem; line-height:1.55; flex-grow:1; }
+  .test-name{ font-family:var(--utility); text-transform:uppercase; letter-spacing:.08em; font-size:.76rem; color:var(--stone-dim); border-top:1px solid var(--line-on-light); padding-top:16px; }
+
+  /* ============ CONTACT ============ */
+  .contact-grid{ display:grid; gap:64px; }
+  @media (min-width:960px){ .contact-grid{ grid-template-columns:1fr 1fr; gap:90px; } }
+  .contact-title{ font-family:var(--display); font-size:clamp(2rem,4vw,3.1rem); margin-top:20px; max-width:14ch; }
+  .contact-lede{ margin-top:20px; color:var(--ivory-dim); font-weight:300; max-width:44ch; }
+
+  .contact-info{ margin-top:44px; display:grid; gap:22px; }
+  .info-row{ display:flex; align-items:center; gap:16px; padding-bottom:20px; border-bottom:1px solid var(--line-on-dark); }
+  .info-row svg{ width:20px; height:20px; stroke:var(--brass-light); flex-shrink:0; }
+  .info-row a, .info-row span{ font-family:var(--utility); font-size:.92rem; letter-spacing:.02em; }
+  .info-label{ display:block; font-size:.66rem; text-transform:uppercase; letter-spacing:.16em; color:var(--stone); margin-bottom:4px; }
+
+  .social-row{ display:flex; gap:14px; margin-top:8px; }
+  .social-row a{
+    width:42px; height:42px; border:1px solid var(--line-on-dark); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; transition:background .3s var(--ease), border-color .3s var(--ease);
+  }
+  .social-row a:hover{ background:var(--brass); border-color:var(--brass); }
+  .social-row svg{ width:16px; height:16px; stroke:var(--ivory); }
+
+  .form{ display:grid; gap:20px; }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field label{ font-family:var(--utility); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--stone); }
+  .field input, .field select, .field textarea{
+    background:transparent; border:none; border-bottom:1px solid var(--line-on-dark); color:var(--ivory);
+    padding:10px 2px; font-size:.98rem; transition:border-color .3s var(--ease);
+  }
+  .field select{ appearance:none; -webkit-appearance:none; }
+  .field select option{ color:var(--ink); }
+  .field input::placeholder, .field textarea::placeholder{ color:var(--stone-dim); }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--brass); outline:none; }
+  .two-col{ display:grid; gap:20px; }
+  @media (min-width:560px){ .two-col{ grid-template-columns:1fr 1fr; } }
+  .form-msg{ font-family:var(--utility); font-size:.84rem; color:var(--brass-light); min-height:1.2em; }
+
+  /* ============ FOOTER ============ */
+  .site-footer{ background:var(--ink-3); color:var(--ivory-dim); padding:64px 0 28px; }
+  .footer-top{ display:grid; gap:48px; padding-bottom:48px; border-bottom:1px solid var(--line-on-dark); }
+  @media (min-width:800px){ .footer-top{ grid-template-columns:1.3fr 1fr 1fr; } }
+  .footer-brand .brand-name{ color:var(--ivory); }
+  .footer-tag{ margin-top:16px; font-weight:300; font-size:.9rem; max-width:32ch; color:var(--stone); }
+  .footer-col-title{ font-family:var(--utility); text-transform:uppercase; letter-spacing:.14em; font-size:.72rem; color:var(--stone); margin-bottom:18px; }
+  .footer-links{ display:grid; gap:12px; }
+  .footer-links a{ font-size:.92rem; }
+  .footer-links a:hover{ color:var(--brass-light); }
+  .footer-bottom{ padding-top:28px; display:flex; flex-direction:column; gap:14px; font-family:var(--utility); font-size:.72rem; letter-spacing:.05em; color:var(--stone-dim); }
+  @media (min-width:700px){ .footer-bottom{ flex-direction:row; justify-content:space-between; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <a class="brand" href="#hero" aria-label="Vicky Made home">
+    <span class="brand-mark">VM</span>
+    <span class="brand-name">Vicky Made</span>
+  </a>
+  <nav class="nav-list" aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#why">Why Us</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="btn btn-solid nav-cta" href="#contact"><span>Book a Fitting</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+  </button>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="#why">Why Us</a>
+  <a href="#testimonials">Testimonials</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<div class="spine" aria-hidden="true">
+  <div class="spine-track"></div>
+  <div class="spine-fill" id="spineFill"></div>
+  <div id="spinePins"></div>
+</div>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Bespoke Atelier — Since 2014</p>
+        <h1 class="hero-title reveal reveal-delay-1">Cut for the way<br>you <em>actually</em> move.</h1>
+        <p class="hero-sub reveal reveal-delay-2">Vicky Made is a bespoke menswear house building tailored suits, occasion wear, and ready-to-wear pieces by hand — one fitting, one client, one garment at a time.</p>
+        <div class="hero-cta reveal reveal-delay-3">
+          <a class="btn btn-solid" href="#contact"><span>Book a Consultation</span></a>
+          <a class="btn btn-ghost" href="#portfolio" style="color:var(--ivory)"><span>View the Portfolio</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+          </a>
+        </div>
+        <p class="hero-note reveal reveal-delay-3">Private appointments · Limited clients per season</p>
+      </div>
+      <div class="hero-figure reveal reveal-delay-2">
+        <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M150 26 C 140 26 132 34 132 42 L 108 58 L 70 78 C 58 86 52 100 50 116 L 42 210 L 66 216 L 78 130 L 84 380 L 132 380 L 132 220 L 150 200 L 168 220 L 168 380 L 216 380 L 222 130 L 234 216 L 258 210 L 250 116 C 248 100 242 86 230 78 L 192 58 L 168 42 C 168 34 160 26 150 26 Z" stroke="#dcbd8a" stroke-width="1.1"/>
+          <path d="M132 42 L 150 86 L 168 42" stroke="#dcbd8a" stroke-width="1.1"/>
+          <path d="M108 58 L 132 100 L 122 220" stroke="#dcbd8a" stroke-width=".7"/>
+          <path d="M192 58 L 168 100 L 178 220" stroke="#dcbd8a" stroke-width=".7"/>
+          <path d="M150 96 L 150 380" stroke="#dcbd8a" stroke-width=".6" stroke-dasharray="2 6"/>
+          <circle cx="138" cy="160" r="2" fill="#dcbd8a"/>
+          <circle cx="138" cy="184" r="2" fill="#dcbd8a"/>
+          <circle cx="138" cy="208" r="2" fill="#dcbd8a"/>
+          <circle cx="150" cy="30" r="3" fill="#dcbd8a"/>
+        </svg>
+      </div>
+    </div>
+    <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <p class="eyebrow">The House</p>
+        <h2 class="about-heading">Built on a needle,<br>a mirror, and a lot<br>of patience.</h2>
+      </div>
+      <div>
+        <div class="about-copy reveal reveal-delay-1">
+          <p>Vicky Made started in a single fitting room with one mirror and one client at a time. Every piece was cut to a real body, not a size chart — and more than a decade later, that hasn't changed.</p>
+          <p>Today the atelier designs suits, occasion wear, and ready-to-wear pieces for men who want clothing built to last, not just to photograph well. Each garment passes through the same hands, from the first sketch to the final stitch.</p>
+        </div>
+        <div class="values reveal reveal-delay-2">
+          <div class="value-item">
+            <span class="value-num">01</span>
+            <p class="value-title">Craftsmanship</p>
+            <p class="value-desc">Every seam is finished by hand, inside and out — no shortcuts on what you can't see.</p>
+          </div>
+          <div class="value-item">
+            <span class="value-num">02</span>
+            <p class="value-title">Fit</p>
+            <p class="value-desc">Patterns are drafted to your own measurements, not adjusted from a stock size.</p>
+          </div>
+          <div class="value-item">
+            <span class="value-num">03</span>
+            <p class="value-title">Longevity</p>
+            <p class="value-desc">Construction built to be worn, altered, and worn again for years to come.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section on-dark" id="services">
+    <div class="wrap">
+      <div class="services-head reveal">
+        <div>
+          <p class="eyebrow">What We Build</p>
+          <h2 class="services-title">Seven ways into the atelier.</h2>
+        </div>
+        <p class="services-lede">Every project starts as a conversation about occasion, silhouette, and fabric — then becomes a pattern with your name on it.</p>
+      </div>
+      <div class="service-list reveal reveal-delay-1">
+        <div class="service-row">
+          <span class="service-no">01</span>
+          <span class="service-name">Bespoke Tailoring</span>
+          <span class="service-desc">Suits, coats, and separates drafted from your own personal pattern block.</span>
+        </div>
+        <div class="service-row">
+          <span class="service-no">02</span>
+          <span class="service-name">Wedding &amp; Occasion Suits</span>
+          <span class="service-desc">Groom's and groomsmen's suits, designed and fitted around your exact day.</span>
+        </div>
+        <div class="service-row">
+          <span class="service-no">03</span>
+          <span class="service-name">Black-Tie &amp; Formalwear</span>
+          <span class="service-desc">Dinner jackets and formal suiting built for the room you're about to walk into.</span>
+        </div>
+        <div class="service-row">
+          <span class="service-no">04</span>
+          <span class="service-name">Ready-to-Wear Collections</span>
+          <span class="service-desc">Seasonal pieces cut in small runs and finished entirely by hand.</span>
+        </div>
+        <div class="service-row">
+          <span class="service-no">05</span>
+          <span class="service-name">Alterations &amp; Fittings</span>
+          <span class="service-desc">Structural alterations and fit corrections for garments you already own.</span>
+        </div>
+        <div class="service-row">
+          <span class="service-no">06</span>
+          <span class="service-name">Fashion Consultations</span>
+          <span class="service-desc">One-on-one sessions on silhouette, fabric, and construction choices.</span>
+        </div>
+        <div class="service-row">
+          <span class="service-no">07</span>
+          <span class="service-name">Custom Designs</span>
+          <span class="service-desc">A garment built from a sketch, a reference image, or a description.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="section" id="portfolio">
+    <div class="wrap">
+      <div class="portfolio-head reveal">
+        <div>
+          <p class="eyebrow">Recent Work</p>
+          <h2 class="portfolio-title">From the atelier floor.</h2>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter portfolio by category">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="occasion">Occasion Suits</button>
+          <button class="filter-btn" data-filter="formal">Formalwear</button>
+          <button class="filter-btn" data-filter="tailoring">Tailoring</button>
+          <button class="filter-btn" data-filter="rtw">Ready-to-Wear</button>
+        </div>
+      </div>
+
+      <div class="gallery reveal reveal-delay-1" id="gallery">
+        <!-- Look 01 -->
+        <div class="look" data-cat="occasion" tabindex="0">
+          <div class="look-visual">
+            <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 10 L42 24 L32 18 L20 38 L32 48 L32 150 L88 150 L88 48 L100 38 L88 18 L78 24 Z" stroke="#5c1c2c" stroke-width="1.2"/><path d="M42 24 L60 52 L78 24" stroke="#5c1c2c" stroke-width="1"/></svg>
+          </div>
+          <div class="look-caption"><span class="look-cat">Occasion Suits</span><p class="look-name">Look 01 — Ivory Silk Groom's Suit</p></div>
+        </div>
+        <!-- Look 02 -->
+        <div class="look" data-cat="tailoring" tabindex="0">
+          <div class="look-visual">
+            <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 10 L40 26 L30 20 L18 40 L30 50 L30 150 L90 150 L90 50 L102 40 L90 20 L80 26 Z" stroke="#b9935c" stroke-width="1.2"/><line x1="60" y1="40" x2="60" y2="150" stroke="#b9935c" stroke-width=".6" stroke-dasharray="2 5"/></svg>
+          </div>
+          <div class="look-caption"><span class="look-cat">Tailoring</span><p class="look-name">Look 02 — Structured Wool Overcoat</p></div>
+        </div>
+        <!-- Look 03 -->
+        <div class="look" data-cat="evening" tabindex="0">
+          <div class="look-visual">
+            <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 14 C50 14 44 22 46 30 L34 44 C30 60 30 90 34 110 L26 152 L94 152 L86 110 C90 90 90 60 86 44 L74 30 C76 22 70 14 60 14Z" stroke="#5c1c2c" stroke-width="1.2"/></svg>
+          </div>
+          <div class="look-caption"><span class="look-cat">Evening</span><p class="look-name">Look 03 — Bordeaux Velvet Gown</p></div>
+        </div>
+        <!-- Look 04 -->
+        <div class="look" data-cat="rtw" tabindex="0">
+          <div class="look-visual">
+            <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 24 L60 40 L80 24 L94 38 L74 54 L84 150 L36 150 L46 54 L26 38 Z" stroke="#b9935c" stroke-width="1.2"/></svg>
+          </div>
+          <div class="look-caption"><span class="look-cat">Ready-to-Wear</span><p class="look-name">Look 04 — Linen Wrap Set</p></div>
+        </div>
+        <!-- Look 05 -->
+        <div class="look" data-cat="bridal" tabindex="0">
+          <div class="look-visual">
+            <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 6 C68 6 74 12 74 20 L74 34 M46 34 L46 20 C46 12 52 6 60 6" stroke="#5c1c2c" stroke-width="1"/><path d="M60 34 C48 34 40 50 40 66 C40 82 48 92 48 92 L36 108 C28 118 26 134 26 152 L94 152 C94 134 92 118 84 108 L72 92 C72 92 80 82 80 66 C80 50 72 34 60 34Z" stroke="#5c1c2c" stroke-width="1.2"/></svg>
+          </div>
+          <div class="look-caption"><span class="look-cat">Bridal</span><p class="look-name">Look 05 — Cathedral Lace Gown</p></div>
+        </div>
+        <!-- Look 06 -->
+        <div class="look" data-cat="tailoring" tabindex="0">
+          <div class="look-visual">
+            <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 12 L38 28 L26 22 L14 44 L28 54 L28 152 L92 152 L92 54 L106 44 L94 22 L82 28 Z" stroke="#b9935c" stroke-width="1.2"/><line x1="42" y1="60" x2="42" y2="140" stroke="#b9935c" stroke-width=".5" stroke-dasharray="1 5"/><line x1="78" y1="60" x2="78" y2="140" stroke="#b9935c" stroke-width=".5" stroke-dasharray="1 5"/></svg>
+          </div>
+          <div class="look-caption"><span class="look-cat">Tailoring</span><p class="look-name">Look 06 — Double-Breasted Suit</p></div>
+        </div>
+        <!-- Look 07 -->
+        <div class="look" data-cat="evening" tabindex="0">
+          <div class="look-visual">
+            <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 16 C52 16 46 24 50 32 L36 46 C30 66 30 100 34 152 L86 152 C90 100 90 66 84 46 L70 32 C74 24 68 16 60 16Z" stroke="#5c1c2c" stroke-width="1.2"/></svg>
+          </div>
+          <div class="look-caption"><span class="look-cat">Evening</span><p class="look-name">Look 07 — Champagne Slip Gown</p></div>
+        </div>
+        <!-- Look 08 -->
+        <div class="look" data-cat="rtw" tabindex="0">
+          <div class="look-visual">
+            <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 14 C50 14 44 22 46 30 L30 44 C24 62 24 90 28 152 L92 152 C96 90 96 62 90 44 L74 30 C76 22 70 14 60 14Z" stroke="#b9935c" stroke-width="1.2"/><path d="M28 100 C 50 108 70 108 92 100" stroke="#b9935c" stroke-width=".5" stroke-dasharray="2 5"/></svg>
+          </div>
+          <div class="look-caption"><span class="look-cat">Ready-to-Wear</span><p class="look-name">Look 08 — Draped Georgette Dress</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="section on-dark2" id="why">
+    <div class="wrap why-grid">
+      <div class="reveal">
+        <p class="eyebrow">Why Choose Us</p>
+        <p class="why-quote">"A garment should disappear the moment you put it on — no pulling, no adjusting, nothing to think about."</p>
+      </div>
+      <div class="why-list reveal reveal-delay-1">
+        <div class="why-item">
+          <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><path d="M4 20 L14 10 M14 10 L12 5 L19 3 L21 10 L16 12 L14 10Z"/></svg></div>
+          <div>
+            <p class="why-title">Hand-Finished Construction</p>
+            <p class="why-desc">French seams, hand-picked hems, and interior finishing most ready-made brands skip entirely.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 10 H20 M10 4 V20"/></svg></div>
+          <div>
+            <p class="why-title">Made-to-Measure Process</p>
+            <p class="why-desc">Every pattern is drafted and refined across multiple fitting sessions, not guessed from a chart.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><circle cx="12" cy="8" r="3.4"/><path d="M5 20 C5 15 8 13 12 13 C16 13 19 15 19 20"/></svg></div>
+          <div>
+            <p class="why-title">Personal Design Consultations</p>
+            <p class="why-desc">Direct access to your designer, from the first sketch through the final fitting.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M8 9 V6 a4 4 0 0 1 8 0 v3"/></svg></div>
+          <div>
+            <p class="why-title">Discreet, Dedicated Service</p>
+            <p class="why-desc">Private appointments and a limited number of clients per season, for full attention on every piece.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="testimonials">
+    <div class="wrap">
+      <div class="test-head reveal">
+        <p class="eyebrow">Client Words</p>
+        <h2 class="test-title">Said in the fitting room.</h2>
+      </div>
+      <div class="test-grid reveal reveal-delay-1">
+        <div class="test-card">
+          <span class="quote-mark">“</span>
+          <p class="test-quote">Vicky didn't just make my dress — she rebuilt how I thought about the whole day. It fit like it had always belonged to me.</p>
+          <p class="test-name">Adaeze O. — Bride</p>
+        </div>
+        <div class="test-card">
+          <span class="quote-mark">“</span>
+          <p class="test-quote">I've had suits made by three different tailors in this city. Nothing has fit the way the ones from Vicky Made do.</p>
+          <p class="test-name">Michael T. — Client</p>
+        </div>
+        <div class="test-card">
+          <span class="quote-mark">“</span>
+          <p class="test-quote">The consultation alone was worth it. She listened, then built exactly what I hadn't been able to describe.</p>
+          <p class="test-name">Funmi A. — Editorial Client</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section on-dark" id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <p class="eyebrow">Get In Touch</p>
+        <h2 class="contact-title">Let's build something.</h2>
+        <p class="contact-lede">Tell us about the occasion, the silhouette, or just where you're starting from. We'll follow up to schedule your first fitting.</p>
+
+        <div class="contact-info">
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M4 5 C4 14 10 20 19 20 L20 16 L15 14 L13 16 C10.5 15 9 13.5 8 11 L10 9 L8 4Z"/></svg>
+            <a href="tel:+2348012345678"><span class="info-label">Phone</span>+234 801 234 5678</a>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M20 12a8 8 0 1 1-3.9-6.9L20 4l-1 3.9A7.96 7.96 0 0 1 20 12Z"/><path d="M8.5 9.5c0 3.5 2.5 6 6 6l1-2-2.2-1-1 1a5 5 0 0 1-2.8-2.8l1-1-1-2.2Z"/></svg>
+            <a href="https://wa.me/2348012345678" target="_blank" rel="noopener"><span class="info-label">WhatsApp</span>Message the Atelier</a>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg>
+            <a href="mailto:hello@vickymade.com"><span class="info-label">Email</span>hello@vickymade.com</a>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M12 21 C 8 16 5 12.5 5 9 a7 7 0 0 1 14 0 c0 3.5 -3 7 -7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            <span><span class="info-label">Studio</span>By appointment only — Ibadan, Nigeria</span>
+          </div>
+        </div>
+
+        <div class="social-row" aria-label="Social media links">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M9 18 C10 14 9.5 10 12 10 c2 0 2.5 1.6 2 3 -0.5 1.4 -2.5 2 -3 0.4"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M14 4 v9.5 a3.5 3.5 0 1 1 -3 -3.46"/><path d="M14 4 c0 2.5 2 4.2 4 4.2"/></svg></a>
+        </div>
+      </div>
+
+      <form class="form reveal reveal-delay-1" id="contactForm" novalidate>
+        <div class="two-col">
+          <div class="field">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="field">
+            <label for="femail">Email</label>
+            <input type="email" id="femail" name="email" placeholder="you@email.com" required>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <label for="fphone">Phone</label>
+            <input type="tel" id="fphone" name="phone" placeholder="Optional">
+          </div>
+          <div class="field">
+            <label for="fservice">Service</label>
+            <select id="fservice" name="service">
+              <option>Bespoke Tailoring</option>
+              <option>Bridal Wear</option>
+              <option>Evening Gowns</option>
+              <option>Ready-to-Wear</option>
+              <option>Alterations &amp; Fittings</option>
+              <option>Fashion Consultation</option>
+              <option>Custom Design</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fmessage">Message</label>
+          <textarea id="fmessage" name="message" rows="4" placeholder="Tell us about the occasion, timeline, or inspiration" required></textarea>
+        </div>
+        <button class="btn btn-solid" type="submit" style="justify-self:flex-start; margin-top:6px;"><span>Send Inquiry</span></button>
+        <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-top">
+    <div class="footer-brand">
+      <div class="brand">
+        <span class="brand-mark">VM</span>
+        <span class="brand-name">Vicky Made</span>
+      </div>
+      <p class="footer-tag">A bespoke fashion house designing bridal, evening, and tailored garments by hand, one fitting at a time.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigate</p>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <div class="footer-links">
+        <a href="tel:+2348012345678">+234 801 234 5678</a>
+        <a href="mailto:hello@vickymade.com">hello@vickymade.com</a>
+        <a href="https://wa.me/2348012345678" target="_blank" rel="noopener">WhatsApp</a>
+        <span>Ibadan, Nigeria — by appointment</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Vicky Made. All rights reserved.</span>
+    <span>Bespoke atelier · Bridal · Evening · Tailoring · Ready-to-Wear</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Header scroll state ----------
+  var header = document.getElementById('siteHeader');
+  function onScroll(){
+    if(window.scrollY > 40){ header.classList.add('scrolled'); }
+    else{ header.classList.remove('scrolled'); }
+  }
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  // ---------- Mobile menu ----------
+  var toggle = document.getElementById('navToggle');
+  var closeBtn = document.getElementById('mobileMenuClose');
+  var menu = document.getElementById('mobileMenu');
+  function openMenu(){ menu.classList.add('open'); toggle.setAttribute('aria-expanded','true'); }
+  function closeMenu(){ menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+  toggle.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+
+  // ---------- Reveal on scroll ----------
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold:.15 });
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  // ---------- Stitch spine ----------
+  var main = document.getElementById('main');
+  var spineFill = document.getElementById('spineFill');
+  var spinePinsWrap = document.getElementById('spinePins');
+  var sections = Array.prototype.slice.call(main.querySelectorAll('.section, .hero'));
+  var pins = [];
+
+  function buildPins(){
+    spinePinsWrap.innerHTML = '';
+    pins = [];
+    var mainTop = main.getBoundingClientRect().top + window.scrollY;
+    sections.forEach(function(sec){
+      var top = sec.getBoundingClientRect().top + window.scrollY - mainTop;
+      var pin = document.createElement('div');
+      pin.className = 'spine-pin';
+      pin.style.top = top + 'px';
+      spinePinsWrap.appendChild(pin);
+      pins.push({ el: pin, top: top });
+    });
+  }
+
+  function updateSpine(){
+    var mainRect = main.getBoundingClientRect();
+    var mainTop = mainRect.top + window.scrollY;
+    var mainHeight = main.offsetHeight;
+    var scrollPos = window.scrollY + window.innerHeight * 0.5 - mainTop;
+    var progress = Math.min(Math.max(scrollPos / mainHeight, 0), 1);
+    spineFill.style.transform = 'scaleY(' + progress + ')';
+    var litPoint = scrollPos;
+    pins.forEach(function(p){
+      if(litPoint >= p.top){ p.el.classList.add('lit'); }
+      else{ p.el.classList.remove('lit'); }
+    });
+  }
+
+  var ticking = false;
+  function requestTick(){
+    if(!ticking){
+      window.requestAnimationFrame(function(){ updateSpine(); ticking = false; });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', requestTick, { passive:true });
+  window.addEventListener('resize', function(){ buildPins(); updateSpine(); });
+  buildPins();
+  updateSpine();
+
+  // ---------- Portfolio filters ----------
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var looks = document.querySelectorAll('.look');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filterBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.getAttribute('data-filter');
+      looks.forEach(function(look){
+        if(f === 'all' || look.getAttribute('data-cat') === f){ look.classList.remove('hide'); }
+        else{ look.classList.add('hide'); }
+      });
+    });
+  });
+
+  // ---------- Contact form ----------
+  var form = document.getElementById('contactForm');
+  var msg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){
+      msg.textContent = 'Please fill in the required fields before sending.';
+      return;
+    }
+    msg.textContent = 'Thank you — your inquiry has been received. We will follow up by email shortly.';
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>
